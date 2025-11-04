@@ -7,9 +7,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Navbar Links - Accessible to everyone
+Route::view('/home', 'home')->name('home');
+Route::view('/bible', 'bible')->name('bible');
+Route::view('/sermons', 'sermons')->name('sermons');
+Route::view('/resources', 'resources')->name('resources');
+Route::view('/contact', 'contact')->name('contact');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
