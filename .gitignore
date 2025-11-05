@@ -16,6 +16,7 @@
 /public/build
 /public/hot
 /public/storage
+/public/images/default.jpg
 /storage/*.key
 /storage/pail
 /vendor
@@ -33,4 +34,3 @@ public/hot
 npm-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-

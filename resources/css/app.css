@@ -90,8 +90,61 @@ button:hover, input[type="submit"]:hover, input[type="button"]:hover {
     background: #3a5a40;
 }
 
+/* Form styles */
 form {
+    background: #f7f6f2;
+    padding: 2rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #3a5a40;
+}
+form input[type="text"],
+form input[type="date"],
+form input[type="file"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 0.7em 1em;
+    margin-bottom: 1.2rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 1rem;
+    background: #fff;
+    color: #2d2d2d;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+form input[type="text"]:focus,
+form input[type="date"]:focus,
+form textarea:focus,
+form select:focus {
+    border-color: #588157;
+    outline: none;
+}
+form .form-group {
+    margin-bottom: 1.5rem;
+}
+form img {
+    display: block;
+    margin: 0.5rem auto 1rem auto;
+    max-width: 150px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.form-submit-button {
+    margin-top: 1rem;
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 0.8em 0;
 }
 
 hr {

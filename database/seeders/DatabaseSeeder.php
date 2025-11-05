@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
     {
         // Default user -> delete
         User::firstOrCreate(
-            ['email' => 'lucas@ehb.be'],
+            ['email' => 'lucas@ehb.be'], //search criteria -> check if user exists
             [
                 'name' => 'Lucas',
                 'email_verified_at' => now(),
@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
         User::firstOrCreate(
             ['email' => 'admin@ehb.be'],
             [
+                'is_admin' => true,
                 'name' => 'admin',
                 'email_verified_at' => now(),
                 'password' => Hash::make('Password!321'),
