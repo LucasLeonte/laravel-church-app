@@ -3,7 +3,7 @@
 @section('title', 'News')
 
 @section('admin')
-    <a href="{{ route('news.create') }}">Add News</a>
+    <a href="{{ route('news.create') }}">Add News Post</a>
 @endsection
 
 @section('content')

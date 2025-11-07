@@ -18,7 +18,7 @@ class PostFactory extends Factory
             'content' => $this->faker->paragraphs(3, true),
             'published_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'author' => $this->faker->name(),
-            'type' => $this->faker->randomElement(['news', 'article']),
+            'type' => $this->faker->randomElement(['news', 'resources']),
         ];
     }
 }

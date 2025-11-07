@@ -32,25 +32,51 @@ class PostController extends Controller
         return view($this->type . '.form', compact('post'));
     }
 
+    /**
+     * Centralized validator rules depending on context.
+     *
+     * @param Request $request
+     * @param bool $isUpdate
+     * @return array
+     */
+    protected function rules(Request $request, bool $isUpdate = false): array
+    {
+        // author required only for resources; optional for news and other types
+        $authorRule = $this->type === 'resources' ? 'required|string|max:255' : 'nullable|string|max:255';
+
+        // image required for news on create, optional (nullable) on update and for resources
+        $imageRulePrefix = ($this->type === 'news' && !$isUpdate) ? 'required' : 'nullable';
+
+        $rules = [
+            'title' => 'required|string|max:255',
+            'author' => $authorRule,
+            'content' => 'required|string',
+            'image' => $imageRulePrefix . '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ];
+
+        return $rules;
+    }
+
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         if (!Auth::user()->isAdmin()) {
             abort(403);
         }
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'content' => 'required|string',
-        ]);
+        $validated = $request->validate($this->rules($request, false));
+
         $post = new Post();
         $post->title = $validated['title'];
         $post->content = $validated['content'];
+        $post->author = $validated['author'] ?? null;
         $post->published_at = now();
         $post->type = $this->type;
+
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->storeAs('images/' . $this->type, uniqid() . '.' . $request->file('image')->getClientOriginalExtension(), 'public');
+            // store path relative to storage/app/public so asset('storage/' . $post->image) works
             $post->image = 'images/' . $this->type . '/' . basename($imagePath);
         }
+
         $post->save();
         return redirect()->route($this->type . '.index')->with('success', ucfirst($this->type) . ' post created successfully.');
     }
@@ -60,18 +86,17 @@ class PostController extends Controller
         if (!Auth::user()->isAdmin()) {
             abort(403);
         }
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'content' => 'required|string',
-        ]);
+        $validated = $request->validate($this->rules($request, true));
         $post = Post::findOrFail($id);
         $post->title = $validated['title'];
         $post->content = $validated['content'];
+        $post->author = $validated['author'] ?? $post->author;
+
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->storeAs('images/' . $this->type, uniqid() . '.' . $request->file('image')->getClientOriginalExtension(), 'public');
             $post->image = 'images/' . $this->type . '/' . basename($imagePath);
         }
+
         $post->save();
         return redirect()->route($this->type . '.index')->with('success', ucfirst($this->type) . ' post updated successfully.');
     }
@@ -86,4 +111,3 @@ class PostController extends Controller
         return redirect()->route($this->type . '.index')->with('success', ucfirst($this->type) . ' post deleted successfully.');
     }
 }
-
