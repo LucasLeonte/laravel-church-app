@@ -2,10 +2,11 @@
     <ul>
         <li><a href="{{ route('home') }}">Home</a></li>
         <li><a href="{{ route('bible') }}">Bible</a></li>
+        <li><a href="{{ route('program') }}">Program</a></li>
         <li><a href="{{ route('news.index') }}">News</a></li>
         <li><a href="{{ route('resources.index') }}">Resources</a></li>
         <li><a href="{{ route('faq.index') }}">FAQ</a></li>
-        <li><a href="{{ route('contact') }}">Contact</a></li>
+        <li><a href="{{ route('contact.index') }}">Contact</a></li>
     </ul>
 
     @auth

@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use \App\Http\Controllers\FaqController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\EnsureAdmin;
+use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,6 +18,9 @@ Route::view('/home', 'home')->name('home');
 
 // Bible
 Route::view('/bible', 'bible')->name('bible');
+
+// Program
+Route::view('/program', 'program')->name('program');
 
 // News public index
 Route::get('/news', [NewsController::class, 'index'])->name('news.index');
@@ -64,7 +68,8 @@ Route::prefix('faq')->middleware(['auth', EnsureAdmin::class])->group(function (
 });
 
 // Contact
-Route::view('/contact', 'contact')->name('contact');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
 // Profile
 Route::middleware('auth')->group(function () {
