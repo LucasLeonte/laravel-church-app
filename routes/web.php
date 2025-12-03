@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\EnsureAdmin;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\BibleController;
 
 require __DIR__.'/auth.php';
 
@@ -20,6 +21,10 @@ Route::view('/home', 'home')->name('home');
 
 // Bible
 Route::view('/bible', 'bible')->name('bible');
+
+// Bible API endpoints (serve JSON from storage/app/bible/{TRANSLATION})
+Route::get('/bible/api/{translation}/index', [BibleController::class, 'index'])->name('bible.api.index');
+Route::get('/bible/api/{translation}/{book}/{chapter}', [BibleController::class, 'chapter'])->name('bible.api.chapter');
 
 // Program - public index
 Route::get('/program', [ProgramController::class, 'index'])->name('program.index');

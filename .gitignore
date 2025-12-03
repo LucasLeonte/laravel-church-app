@@ -19,6 +19,7 @@
 /public/images/default-news-image.jpg
 /storage/*.key
 /storage/pail
+/storage/app/bible/web.json
 /vendor
 Homestead.json
 Homestead.yaml
