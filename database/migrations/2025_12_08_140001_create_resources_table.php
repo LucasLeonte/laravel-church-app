@@ -19,6 +19,7 @@ return new class extends Migration
             $table->timestamp('published_at');
             $table->string('author');
             $table->string('link')->nullable();
+            $table->foreignId('resource_category_id')->constrained('resource_categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

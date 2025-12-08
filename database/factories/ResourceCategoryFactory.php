@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Models\FaqCategory;
+use App\Models\ResourceCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<FaqCategory>
+ * @extends Factory<ResourceCategory>
  */
-class FaqCategoryFactory extends Factory
+class ResourceCategoryFactory extends Factory
 {
-    protected $model = FaqCategory::class;
+    protected $model = ResourceCategory::class;
 
     protected static array $categories = [
         'Systematic Theology',
@@ -18,7 +18,12 @@ class FaqCategoryFactory extends Factory
         'Apologetics',
         'Church History',
         'Denominations',
-        'Worship',
+        'Pastoral',
+        'Sermons',
+        'Science',
+        'Philosophy',
+        'Devotional',
+        'Revival',
     ];
 
     /**
@@ -33,3 +38,4 @@ class FaqCategoryFactory extends Factory
         ];
     }
 }
+

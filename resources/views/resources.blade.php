@@ -3,11 +3,15 @@
 
 @section('title', 'Resources')
 
-@section('admin-header')
-    <a href="{{ route('resources.create') }}">Add Resource</a>
-@endsection
-
 @section('content')
+    @can('admin')
+        <div>
+            <a href="{{ route('resources.categories.create') }}">Create category</a>
+            <a href="{{ route('resources.categories.index') }}">Manage categories</a>
+            <a href="{{ route('resources.create') }}">Add Resource</a>
+        </div>
+    @endcan
+
     @foreach($resources as $post)
         <article>
             <h2>{{ $post->title }}</h2>

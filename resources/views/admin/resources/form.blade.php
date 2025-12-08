@@ -16,6 +16,14 @@
         <label for="author">Author</label>
         <input type="text" name="author" id="author" value="{{ old('author', $post->author) }}" required>
 
+        <label for="resource_category_id">Category</label>
+        <select name="resource_category_id" id="resource_category_id">
+            <option value="">-- None --</option>
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}" {{ (int)old('resource_category_id', $post->resource_category_id) === $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+            @endforeach
+        </select>
+
         <label for="content">Content</label>
         <textarea name="content" id="content">{{ old('content', $post->content) }}</textarea>
 

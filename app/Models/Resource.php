@@ -6,6 +6,7 @@ use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @method static findOrFail($id)
@@ -16,6 +17,7 @@ use Illuminate\Support\Carbon;
  * @property CarbonInterface|Carbon|mixed $published_at
  * @property mixed|string $image
  * @property mixed|null $link
+ * @property mixed|null $resource_category_id
  */
 class Resource extends Model
 {
@@ -28,6 +30,11 @@ class Resource extends Model
         'published_at',
         'author',
         'link',
+        'resource_category_id',
     ];
-}
 
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(ResourceCategory::class, 'resource_category_id');
+    }
+}

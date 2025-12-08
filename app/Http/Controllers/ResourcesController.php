@@ -6,7 +6,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Redirect;
 use App\Models\Resource;
+use App\Models\ResourceCategory;
 
 class ResourcesController extends Controller
 {
@@ -18,13 +20,15 @@ class ResourcesController extends Controller
 
     public function create(): Factory|View
     {
-        return view('admin.resources.form', ['post' => new Resource()]);
+        $categories = ResourceCategory::orderBy('name')->get();
+        return view('admin.resources.form', ['post' => new Resource(), 'categories' => $categories]);
     }
 
     public function edit($id): Factory|View
     {
         $post = Resource::findOrFail($id);
-        return view('admin.resources.form', compact('post'));
+        $categories = ResourceCategory::orderBy('name')->get();
+        return view('admin.resources.form', compact('post', 'categories'));
     }
 
     /**
@@ -41,6 +45,7 @@ class ResourcesController extends Controller
             // optional link, must be a valid URL when present
             'link' => 'nullable|url|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'resource_category_id' => 'nullable|exists:resource_categories,id',
         ];
     }
 
@@ -56,6 +61,7 @@ class ResourcesController extends Controller
 
         // store link if provided
         $post->link = $validated['link'] ?? null;
+        $post->resource_category_id = $validated['resource_category_id'] ?? null;
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->storeAs('images/resources', uniqid() . '.' . $request->file('image')->getClientOriginalExtension(), 'public');
@@ -82,6 +88,10 @@ class ResourcesController extends Controller
             $post->link = $validated['link'];
         }
 
+        if (array_key_exists('resource_category_id', $validated)) {
+            $post->resource_category_id = $validated['resource_category_id'];
+        }
+
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->storeAs('images/resources', uniqid() . '.' . $request->file('image')->getClientOriginalExtension(), 'public');
             $post->image = 'images/resources/' . basename($imagePath);
@@ -96,5 +106,51 @@ class ResourcesController extends Controller
         $post = Resource::findOrFail($id);
         $post->delete();
         return redirect()->route('resources.index')->with('success', 'Resource deleted successfully.');
+    }
+
+    // Admin: category CRUD
+    public function categories(): Factory|View
+    {
+        $categories = ResourceCategory::orderBy('name')->get();
+        return view('admin.resources.categories', compact('categories'));
+    }
+
+    public function createCategory(): Factory|View
+    {
+        return view('admin.resources.category-form', ['category' => new ResourceCategory()]);
+    }
+
+    public function storeCategory(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+        ResourceCategory::create($data);
+        return Redirect::route('resources.categories.index')->with('success', 'Category created');
+    }
+
+    public function editCategory($id): Factory|View
+    {
+        $category = ResourceCategory::findOrFail($id);
+        return view('admin.resources.category-form', compact('category'));
+    }
+
+    public function updateCategory(Request $request, $id): RedirectResponse
+    {
+        $category = ResourceCategory::findOrFail($id);
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+        $category->update($data);
+        return Redirect::route('resources.categories.index')->with('success', 'Category updated');
+    }
+
+    public function destroyCategory($id): RedirectResponse
+    {
+        $category = ResourceCategory::findOrFail($id);
+        $category->delete();
+        return Redirect::route('resources.categories.index')->with('success', 'Category deleted');
     }
 }

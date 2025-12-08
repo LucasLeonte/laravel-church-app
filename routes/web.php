@@ -101,26 +101,32 @@ Route::prefix('admin')->middleware(['auth', EnsureAdmin::class])->group(function
         Route::get('/{id}/edit', [ResourcesController::class, 'edit'])->name('resources.edit');
         Route::put('/{id}', [ResourcesController::class, 'update'])->name('resources.update');
         Route::delete('/{id}', [ResourcesController::class, 'destroy'])->name('resources.destroy');
+
+        // categories
+        Route::get('/categories', [ResourcesController::class, 'categories'])->name('resources.categories.index');
+        Route::get('/categories/create', [ResourcesController::class, 'createCategory'])->name('resources.categories.create');
+        Route::post('/categories', [ResourcesController::class, 'storeCategory'])->name('resources.categories.store');
+        Route::get('/categories/{id}/edit', [ResourcesController::class, 'editCategory'])->name('resources.categories.edit');
+        Route::put('/categories/{id}', [ResourcesController::class, 'updateCategory'])->name('resources.categories.update');
+        Route::delete('/categories/{id}', [ResourcesController::class, 'destroyCategory'])->name('resources.categories.destroy');
     });
 
     // FAQ
     Route::prefix('faq')->group(function () {
-        Route::get('/categories', [FaqController::class, 'categories'])->name('faq.categories.index');
         Route::get('/faqs', [FaqController::class, 'faqs'])->name('faq.faqs.index');
-
-        // categories
-        Route::get('/categories/create', [FaqController::class, 'createCategory'])->name('faq.categories.create');
-        Route::post('/categories', [FaqController::class, 'storeCategory'])->name('faq.categories.store');
-        Route::get('/categories/{id}/edit', [FaqController::class, 'editCategory'])->name('faq.categories.edit');
-        Route::put('/categories/{id}', [FaqController::class, 'updateCategory'])->name('faq.categories.update');
-        Route::delete('/categories/{id}', [FaqController::class, 'destroyCategory'])->name('faq.categories.destroy');
-
-        // faqs
         Route::get('/faqs/create', [FaqController::class, 'createFaq'])->name('faq.faqs.create');
         Route::post('/faqs', [FaqController::class, 'storeFaq'])->name('faq.faqs.store');
         Route::get('/faqs/{id}/edit', [FaqController::class, 'editFaq'])->name('faq.faqs.edit');
         Route::put('/faqs/{id}', [FaqController::class, 'updateFaq'])->name('faq.faqs.update');
         Route::delete('/faqs/{id}', [FaqController::class, 'destroyFaq'])->name('faq.faqs.destroy');
+
+        // categories
+        Route::get('/categories', [FaqController::class, 'categories'])->name('faq.categories.index');
+        Route::get('/categories/create', [FaqController::class, 'createCategory'])->name('faq.categories.create');
+        Route::post('/categories', [FaqController::class, 'storeCategory'])->name('faq.categories.store');
+        Route::get('/categories/{id}/edit', [FaqController::class, 'editCategory'])->name('faq.categories.edit');
+        Route::put('/categories/{id}', [FaqController::class, 'updateCategory'])->name('faq.categories.update');
+        Route::delete('/categories/{id}', [FaqController::class, 'destroyCategory'])->name('faq.categories.destroy');
     });
 
     // Contact messages

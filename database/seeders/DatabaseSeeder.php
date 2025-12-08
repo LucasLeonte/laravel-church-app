@@ -4,9 +4,11 @@ namespace Database\Seeders;
 
 use App\Models\News;
 use App\Models\Resource;
+use App\Models\ResourceCategory;
 use App\Models\User;
 use \App\Models\FaqCategory;
 use \App\Models\Faq;
+use Database\Factories\ResourceFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -41,9 +43,15 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Seed News and Resources separately
+        // News
         News::factory()->count(4)->create();
-        Resource::factory()->count(4)->create();
+
+        // Resources
+        ResourceCategory::factory()->count(4)->create()->each(function ($category) {
+            Resource::factory()->create([
+                'resource_category_id' => $category->id,
+            ]);
+        });
 
         // FAQ
         FaqCategory::factory()->count(4)->create()->each(function ($category) {

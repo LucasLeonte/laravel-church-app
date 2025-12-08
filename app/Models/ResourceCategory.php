@@ -2,27 +2,24 @@
 
 namespace App\Models;
 
-use Closure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @method static firstOrCreate(string[] $array)
- * @method static create(array $data)
  * @method static findOrFail($id)
  * @method static orderBy(string $string)
- * @method static whereHas(string $string, Closure $param)
- * @method static where(string $string, string $string1, string $qStr)
+ * @method static create(array $data)
  */
-class FaqCategory extends Model
+class ResourceCategory extends Model
 {
     use HasFactory;
 
     protected $fillable = ['name', 'description'];
 
-    public function faqs(): HasMany
+    public function resources(): HasMany
     {
-        return $this->hasMany(Faq::class);
+        return $this->hasMany(Resource::class);
     }
 }
+
