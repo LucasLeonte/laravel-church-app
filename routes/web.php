@@ -57,6 +57,7 @@ Route::middleware('auth')->prefix('connect')->group(function () {
     Route::post('/requests/{id}/accept', [ConnectController::class, 'accept'])->name('connect.request.accept');
     Route::post('/requests/{id}/decline', [ConnectController::class, 'decline'])->name('connect.request.decline');
     Route::delete('/requests/{id}', [ConnectController::class, 'cancel'])->name('connect.request.cancel');
+    Route::post('/{other}/remove', [ConnectController::class, 'removeFriend'])->name('connect.friend.remove');
 });
 
 // News - public index
