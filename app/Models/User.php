@@ -7,6 +7,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\FavoriteVerse;
 
 /**
  * @method static firstOrCreate(string[] $array, array $array1)
@@ -52,5 +53,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * User has many favorite verses.
+     */
+    public function favoriteVerses(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(FavoriteVerse::class);
     }
 }
