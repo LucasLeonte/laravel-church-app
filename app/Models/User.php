@@ -15,7 +15,11 @@ use App\Models\FriendRequest;
 
 /**
  * @method static firstOrCreate(string[] $array, array $array1)
+ * @method static orderBy(string $string)
+ * @method static create(array $array)
+ * @method static where(string $string, true $true)
  * @property mixed $id
+ * @property mixed $is_admin
  */
 class User extends Authenticatable
 {

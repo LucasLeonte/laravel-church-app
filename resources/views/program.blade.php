@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Program')
+@section('title', 'Weekly Program')
 
 @section('content')
-    <h1>Weekly Program</h1>
+    @can('admin')
+        <p><a href="{{ route('program.manage') }}">Manage program</a></p>
+    @endcan
 
     @if($programs->isEmpty())
         <p>No program items available.</p>
@@ -31,9 +33,4 @@
             @endforeach
         </div>
     @endif
-
-    @can('admin')
-        <p><a href="{{ route('program.manage') }}">Manage program</a></p>
-    @endcan
-
 @endsection

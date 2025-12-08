@@ -15,18 +15,18 @@ class PostController extends Controller
     public function index(): Factory|View
     {
         $posts = Post::where('type', $this->type)->get();
-        return view($this->type . '.' . $this->type, ['posts' => $posts]);
+        return view($this->type, ['posts' => $posts]);
     }
 
     public function create(): Factory|View
     {
-        return view($this->type . '.admin.form', ['post' => new Post()]);
+        return view('admin.' . $this->type . '.form', ['post' => new Post()]);
     }
 
     public function edit($id): Factory|View
     {
         $post = Post::findOrFail($id);
-        return view($this->type . '.admin.form', compact('post'));
+        return view('admin.' . $this->type . '.form', compact('post'));
     }
 
     /**

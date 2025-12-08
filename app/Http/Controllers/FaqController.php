@@ -20,7 +20,7 @@ class FaqController extends Controller
                 $q->orderBy('id');
             }])->orderBy('name')->get();
 
-            return view('faq.index', compact('categories'));
+            return view('faq', compact('categories'));
         }
 
         // When searching:
@@ -57,19 +57,19 @@ class FaqController extends Controller
 
         $categories = $merged->values();
 
-        return view('faq.index', compact('categories'));
+        return view('faq', compact('categories'));
     }
 
     // Admin: category CRUD
     public function categories(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $categories = FaqCategory::orderBy('name')->get();
-        return view('faq.admin.categories', compact('categories'));
+        return view('admin.faq.categories', compact('categories'));
     }
 
     public function createCategory(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        return view('faq.admin.category-form', ['category' => new FaqCategory()]);
+        return view('admin.faq.category-form', ['category' => new FaqCategory()]);
     }
 
     public function storeCategory(Request $request): \Illuminate\Http\RedirectResponse
@@ -85,7 +85,7 @@ class FaqController extends Controller
     public function editCategory($id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $category = FaqCategory::findOrFail($id);
-        return view('faq.admin.category-form', compact('category'));
+        return view('admin.faq.category-form', compact('category'));
     }
 
     public function updateCategory(Request $request, $id): \Illuminate\Http\RedirectResponse
@@ -123,13 +123,13 @@ class FaqController extends Controller
             ->orderBy('faq_category_id')
             ->paginate(15);
 
-        return view('faq.admin.faqs', compact('faqs'));
+        return view('admin.faq.faqs', compact('faqs'));
     }
 
     public function createFaq(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $categories = FaqCategory::orderBy('name')->get();
-        return view('faq.admin.faq-form', ['faq' => new Faq(), 'categories' => $categories]);
+        return view('admin.faq.faq-form', ['faq' => new Faq(), 'categories' => $categories]);
     }
 
     public function storeFaq(Request $request): \Illuminate\Http\RedirectResponse
@@ -147,7 +147,7 @@ class FaqController extends Controller
     {
         $faq = Faq::findOrFail($id);
         $categories = FaqCategory::orderBy('name')->get();
-        return view('faq.admin.faq-form', compact('faq', 'categories'));
+        return view('admin.faq.faq-form', compact('faq', 'categories'));
     }
 
     public function updateFaq(Request $request, $id): \Illuminate\Http\RedirectResponse

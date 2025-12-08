@@ -5,7 +5,7 @@
 @section('content')
     <form method="POST" action="{{ route('program.store') }}">
         @csrf
-        @include('program._form')
+        @include('admin.program._form')
         <button type="submit">Create</button>
     </form>
 @endsection

@@ -44,7 +44,7 @@ class ProgramController extends Controller
                 ->get();
         }
 
-        return view('program.index', compact('programs'));
+        return view('program', compact('programs'));
     }
 
     // Admin manage view
@@ -61,13 +61,13 @@ class ProgramController extends Controller
                 ->get();
         }
 
-        return view('program.manage', compact('programs'));
+        return view('admin.program.manage', compact('programs'));
     }
 
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $program = new Program();
-        return view('program.create', compact('program'));
+        return view('admin.program.create', compact('program'));
     }
 
     public function store(Request $request): \Illuminate\Http\RedirectResponse
@@ -82,7 +82,7 @@ class ProgramController extends Controller
     public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $program = Program::findOrFail($id);
-        return view('program.edit', compact('program'));
+        return view('admin.program.edit', compact('program'));
     }
 
     public function update(Request $request, $id): \Illuminate\Http\RedirectResponse

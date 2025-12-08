@@ -11,6 +11,7 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\BibleController;
 use App\Http\Controllers\FavoriteVerseController;
 use App\Http\Controllers\ConnectController;
+use App\Http\Controllers\Admin\UserController;
 
 require __DIR__.'/auth.php';
 
@@ -108,6 +109,15 @@ Route::prefix('faq')->middleware(['auth', EnsureAdmin::class])->group(function (
 // Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+
+// Admin - user management
+Route::prefix('admin/users')->middleware(['auth', EnsureAdmin::class])->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('admin.users.index');
+    Route::get('/create', [UserController::class, 'create'])->name('admin.users.create');
+    Route::post('/', [UserController::class, 'store'])->name('admin.users.store');
+    Route::delete('/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+    Route::post('/{user}/toggle-admin', [UserController::class, 'toggleAdmin'])->name('admin.users.toggleAdmin');
+});
 
 // Profile
 Route::middleware('auth')->group(function () {
