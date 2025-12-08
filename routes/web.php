@@ -10,6 +10,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\BibleController;
 use App\Http\Controllers\FavoriteVerseController;
+use App\Http\Controllers\ConnectController;
 
 require __DIR__.'/auth.php';
 
@@ -47,6 +48,16 @@ Route::prefix('program')->middleware(['auth', EnsureAdmin::class])->group(functi
     Route::delete('/{id}', [ProgramController::class, 'destroy'])->name('program.destroy');
 });
 
+// Connect - public index
+Route::get('/connect', [ConnectController::class, 'index'])->name('connect.index');
+
+// Connect - actions (require auth)
+Route::middleware('auth')->prefix('connect')->group(function () {
+    Route::post('/{receiver}/request', [ConnectController::class, 'sendRequest'])->name('connect.request.send');
+    Route::post('/requests/{id}/accept', [ConnectController::class, 'accept'])->name('connect.request.accept');
+    Route::post('/requests/{id}/decline', [ConnectController::class, 'decline'])->name('connect.request.decline');
+    Route::delete('/requests/{id}', [ConnectController::class, 'cancel'])->name('connect.request.cancel');
+});
 
 // News - public index
 Route::get('/news', [NewsController::class, 'index'])->name('news.index');

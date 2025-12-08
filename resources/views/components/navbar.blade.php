@@ -3,7 +3,7 @@
         <li><a href="{{ route('home') }}">Home</a></li>
         <li><a href="{{ route('bible.index') }}">Bible</a></li>
         <li><a href="{{ route('program.index') }}">Program</a></li>
-        <li><a href="{{ route('connect.index') }}">Program</a></li>
+        <li><a href="{{ route('connect.index') }}">Connect</a></li>
         <li><a href="{{ route('news.index') }}">News</a></li>
         <li><a href="{{ route('resources.index') }}">Resources</a></li>
         <li><a href="{{ route('faq.index') }}">FAQ</a></li>
