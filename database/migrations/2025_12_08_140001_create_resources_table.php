@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('image');
             $table->text('content');
             $table->timestamp('published_at');
-            $table->string('author')->nullable();
+            $table->string('author');
+            $table->string('link')->nullable();
             $table->timestamps();
         });
     }
@@ -30,4 +31,3 @@ return new class extends Migration
         Schema::dropIfExists('resources');
     }
 };
-

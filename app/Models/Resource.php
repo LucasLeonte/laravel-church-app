@@ -9,11 +9,13 @@ use Illuminate\Support\Carbon;
 
 /**
  * @method static findOrFail($id)
+ * @method static orderBy(string $string, string $string1)
  * @property mixed $title
  * @property mixed $content
  * @property mixed|null $author
  * @property CarbonInterface|Carbon|mixed $published_at
  * @property mixed|string $image
+ * @property mixed|null $link
  */
 class Resource extends Model
 {
@@ -25,6 +27,7 @@ class Resource extends Model
         'content',
         'published_at',
         'author',
+        'link',
     ];
 }
 

@@ -1,3 +1,4 @@
+@php use Carbon\Carbon; @endphp
 @extends('layouts.app')
 
 @section('title', 'Resources')
@@ -11,9 +12,17 @@
         <article>
             <h2>{{ $post->title }}</h2>
             <h3>{{ $post->author }}</h3>
-            <img src="{{ Str::startsWith($post->image, 'default-news-image') ? asset('images/' . $post->image) : asset('storage/' . $post->image) }}" alt="img">
+            {{-- determine whether to load from public/images (default) or storage --}}
+            <img
+                src="{{ Str::startsWith($post->image, 'default-resources-image') ? asset('images/' . $post->image) : asset('storage/' . $post->image) }}"
+                alt="img">
             <p>{{ $post->content }}</p>
-            <p>Published on {{ $post->published_at }}</p>
+
+            @if(!empty($post->link))
+                <p>Link: <a href="{{ $post->link }}" target="_blank" rel="noopener noreferrer">{{ $post->link }}</a></p>
+            @endif
+
+            <p>Published on {{ $post->published_at ? Carbon::parse($post->published_at)->toFormattedDateString() : $post->published_at }}</p>
 
             @can('admin')
                 <a href="{{ route('resources.edit', $post->id) }}">Edit</a>

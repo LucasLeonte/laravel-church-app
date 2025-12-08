@@ -21,7 +21,7 @@ class ResourceFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(),
-            'image' => 'default-news-image.jpg',
+            'image' => 'default-resources-image.jpg',
             'content' => $this->faker->paragraphs(3, true),
             'published_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'author' => $this->faker->name(),

@@ -17,13 +17,22 @@
         <input type="text" name="author" id="author" value="{{ old('author', $post->author) }}" required>
 
         <label for="content">Content</label>
-        <textarea name="content" id="content" required>{{ old('content', $post->content) }}</textarea>
+        <textarea name="content" id="content">{{ old('content', $post->content) }}</textarea>
 
         <label for="image">Image</label>
         <input type="file" name="image" id="image" accept="image/*">
         @if($post->image)
             <div>
-                <img src="{{ asset('storage/' . $post->image) }}" alt="Current image" style="max-width: 150px;">
+                {{-- show default public image when filename indicates default, otherwise load from storage --}}
+                <img src="{{ Str::startsWith($post->image, 'default-resources-image') ? asset('images/' . $post->image) : asset('storage/' . $post->image) }}" alt="Current image" style="max-width: 150px;">
+            </div>
+        @endif
+
+        <label for="link">Web link (optional)</label>
+        <input type="url" name="link" id="link" value="{{ old('link', $post->link) }}" placeholder="https://example.com">
+        @if($post->link)
+            <div>
+                Current link: <a href="{{ $post->link }}" target="_blank" rel="noopener noreferrer">{{ $post->link }}</a>
             </div>
         @endif
 
