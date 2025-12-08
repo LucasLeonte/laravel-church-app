@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    @foreach($posts as $post)
+    @foreach($resources as $post)
         <article>
             <h2>{{ $post->title }}</h2>
             <h3>{{ $post->author }}</h3>

@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Post;
+use App\Models\News;
+use App\Models\Resource;
 use App\Models\User;
 use \App\Models\FaqCategory;
 use \App\Models\Faq;
@@ -40,8 +41,9 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Posts (news and articles)
-        Post::factory()->count(10)->create();
+        // Seed News and Resources separately
+        News::factory()->count(4)->create();
+        Resource::factory()->count(4)->create();
 
         // FAQ
         FaqCategory::factory()->count(4)->create()->each(function ($category) {

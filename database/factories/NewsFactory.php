@@ -2,14 +2,21 @@
 
 namespace Database\Factories;
 
+use App\Models\News;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\News>
  */
-class PostFactory extends Factory
+class NewsFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = News::class;
+
     public function definition(): array
     {
         return [
@@ -18,8 +25,6 @@ class PostFactory extends Factory
             'content' => $this->faker->paragraphs(3, true),
             'published_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'author' => $this->faker->name(),
-            'type' => $this->faker->randomElement(['news', 'resources']),
         ];
     }
 }
-
