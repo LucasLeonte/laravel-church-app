@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @method static where(\Closure $param)
+ * @method static where(Closure $param)
  * @method static create(array $array)
  * @method static findOrFail($id)
  */
@@ -19,9 +20,5 @@ class FriendRequest extends Model
         return $this->belongsTo(User::class, 'sender_id');
     }
 
-    public function receiver(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'receiver_id');
-    }
 }
 

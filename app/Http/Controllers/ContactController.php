@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use App\Mail\ContactFormMail;
+use Throwable;
 
 class ContactController extends Controller
 {
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function index(): Factory|View
     {
         return view('contact');
     }
 
-    public function send(Request $request): \Illuminate\Http\RedirectResponse
+    public function send(Request $request): RedirectResponse
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
@@ -37,7 +41,7 @@ class ContactController extends Controller
             }
 
             return redirect()->route('contact.index')->with('status', 'Bedankt — uw bericht is verzonden.');
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             Log::error('Contact mail exception: '.$e->getMessage(), [
                 'exception' => $e,
                 'admin' => $adminEmail,

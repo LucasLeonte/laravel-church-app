@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use App\Models\Post;
@@ -32,11 +32,10 @@ class PostController extends Controller
     /**
      * Centralized validator rules depending on context.
      *
-     * @param Request $request
      * @param bool $isUpdate
      * @return array
      */
-    protected function rules(Request $request, bool $isUpdate = false): array
+    protected function rules(bool $isUpdate = false): array
     {
         // author required only for resources; optional for news and other types
         $authorRule = $this->type === 'resources' ? 'required|string|max:255' : 'nullable|string|max:255';
@@ -52,9 +51,9 @@ class PostController extends Controller
         ];
     }
 
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        $validated = $request->validate($this->rules($request, false));
+        $validated = $request->validate($this->rules());
 
         $post = new Post();
         $post->title = $validated['title'];
@@ -78,9 +77,9 @@ class PostController extends Controller
         return redirect()->route($this->type . '.index')->with('success', ucfirst($this->type) . ' post created successfully.');
     }
 
-    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, $id): RedirectResponse
     {
-        $validated = $request->validate($this->rules($request, true));
+        $validated = $request->validate($this->rules(true));
         $post = Post::findOrFail($id);
         $post->title = $validated['title'];
         $post->content = $validated['content'];
@@ -95,7 +94,7 @@ class PostController extends Controller
         return redirect()->route($this->type . '.index')->with('success', ucfirst($this->type) . ' post updated successfully.');
     }
 
-    public function destroy($id): \Illuminate\Http\RedirectResponse
+    public function destroy($id): RedirectResponse
     {
         $post = Post::findOrFail($id);
         $post->delete();

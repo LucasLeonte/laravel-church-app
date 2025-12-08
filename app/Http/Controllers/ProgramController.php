@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Program;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +28,7 @@ class ProgramController extends Controller
     }
 
     // Public index
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function index(): Factory|View
     {
         // Build a driver-aware ordering because SQLite doesn't support FIELD()
         $programsQuery = Program::where('published', true);
@@ -48,7 +51,7 @@ class ProgramController extends Controller
     }
 
     // Admin manage view
-    public function manage(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function manage(): Factory|View
     {
         // Use same ordering logic for admin/manage listing
         if (DB::getDriverName() === 'sqlite') {
@@ -64,13 +67,13 @@ class ProgramController extends Controller
         return view('admin.program.manage', compact('programs'));
     }
 
-    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function create(): Factory|View
     {
         $program = new Program();
         return view('admin.program.create', compact('program'));
     }
 
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $data = $this->validateProgram($request);
         // Use boolean helper so unchecked checkbox results in false
@@ -79,13 +82,13 @@ class ProgramController extends Controller
         return Redirect::route('program.manage')->with('success', 'Program item created.');
     }
 
-    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function edit($id): Factory|View
     {
         $program = Program::findOrFail($id);
         return view('admin.program.edit', compact('program'));
     }
 
-    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, $id): RedirectResponse
     {
         $program = Program::findOrFail($id);
         $data = $this->validateProgram($request);
@@ -94,7 +97,7 @@ class ProgramController extends Controller
         return Redirect::route('program.manage')->with('success', 'Program item updated.');
     }
 
-    public function destroy($id): \Illuminate\Http\RedirectResponse
+    public function destroy($id): RedirectResponse
     {
         $program = Program::findOrFail($id);
         $program->delete();

@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
+use Closure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Faq;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method static firstOrCreate(string[] $array)
  * @method static create(array $data)
  * @method static findOrFail($id)
  * @method static orderBy(string $string)
+ * @method static whereHas(string $string, Closure $param)
  */
 class FaqCategory extends Model
 {
@@ -18,7 +20,11 @@ class FaqCategory extends Model
 
     protected $fillable = ['name', 'description'];
 
-    public function faqs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public static function where(string $string, string $string1, string $qStr)
+    {
+    }
+
+    public function faqs(): HasMany
     {
         return $this->hasMany(Faq::class);
     }

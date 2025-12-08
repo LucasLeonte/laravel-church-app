@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ConnectController extends Controller
 {
@@ -43,7 +44,7 @@ class ConnectController extends Controller
 
             // 2) Received pending requests (others who sent me a request) - newest first
             // Use the DB query builder here to avoid static-analyzer confusion with latest()/orderByDesc signatures.
-            $receivedRows = \Illuminate\Support\Facades\DB::table('friend_requests')
+            $receivedRows = DB::table('friend_requests')
                 ->where('receiver_id', $authId)
                 ->where('status', 'pending')
                 ->orderBy('created_at', 'desc')

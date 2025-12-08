@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\FavoriteVerse;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FavoriteVerseController extends Controller
 {
-    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\JsonResponse
+    public function index(Request $request): Factory|View|JsonResponse
     {
         $favorites = Auth::id() ? FavoriteVerse::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get() : collect();
 
@@ -19,7 +23,7 @@ class FavoriteVerseController extends Controller
         return view('bible.favorites', compact('favorites'));
     }
 
-    public function store(Request $request): \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+    public function store(Request $request): JsonResponse|RedirectResponse
     {
         $request->validate([
             'translation' => 'required|string|max:32',
@@ -40,7 +44,7 @@ class FavoriteVerseController extends Controller
         return back()->with('success', 'Verse added to favorites');
     }
 
-    public function destroy(Request $request, $id): \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, $id): JsonResponse|RedirectResponse
     {
         $fav = FavoriteVerse::where('id', $id)->where('user_id', Auth::id())->first();
         if (!$fav) {
