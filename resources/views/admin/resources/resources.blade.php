@@ -5,12 +5,16 @@
 @section('content')
     <a href="{{ route('resources.create') }}">Create new Resource</a>
 
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
     <ul>
         @foreach($resources as $resource)
             <li>
                 <strong>{{ $resource->title }}</strong> (Category: {{ $resource->category->name ?? 'None' }})
                 <a href="{{ route('resources.edit', $resource->id) }}">Edit</a>
-                <form action="{{ route('resources.destroy', $resource->id) }}" method="POST" style="display:inline">
+                <form action="{{ route('resources.destroy', $resource->id) }}" method="POST" style="display:inline" onsubmit="return confirm('Are you sure you want to delete this resource?');">
                     @csrf
                     @method('DELETE')
                     <button type="submit">Delete</button>
@@ -27,4 +31,3 @@
         {{ $resources->links() }}
     @endif
 @endsection
-

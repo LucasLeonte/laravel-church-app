@@ -8,6 +8,10 @@
 @endsection
 
 @section('content')
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
     @foreach($news as $post)
         <article>
             <h2>{{ $post->title }}</h2>
@@ -19,7 +23,7 @@
 
             @can('admin')
                 <a href="{{ route('news.edit', $post->id) }}">Edit</a>
-                <form action="{{ route('news.destroy', $post->id) }}" method="POST" style="display:inline;">
+                <form action="{{ route('news.destroy', $post->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this news post?');">
                     @csrf
                     @method('DELETE')
                     <button type="submit">Delete</button>
