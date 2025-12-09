@@ -22,7 +22,7 @@
                 @foreach($friends as $user)
                     <article>
                         @if($user->avatar)
-                            <img src="{{ asset('storage/avatars/' . $user->avatar) }}" alt="{{ $user->name }} avatar">
+                            <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }} avatar">
                         @else
                             <img src="{{ asset('images/default-avatar.svg') }}" alt="default avatar">
                         @endif
@@ -71,7 +71,7 @@
                     @php $frId = $receivedMap[$user->id] ?? null; @endphp
                     <article>
                         @if($user->avatar)
-                            <img src="{{ asset('storage/avatars/' . $user->avatar) }}" alt="{{ $user->name }} avatar">
+                            <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }} avatar">
                         @else
                             <img src="{{ asset('images/default-avatar.svg') }}" alt="default avatar">
                         @endif
@@ -122,7 +122,7 @@
             @foreach($others as $user)
                 <article>
                     @if($user->avatar)
-                        <img src="{{ asset('storage/avatars/' . $user->avatar) }}" alt="{{ $user->name }} avatar">
+                        <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }} avatar">
                     @else
                         <img src="{{ asset('images/default-avatar.svg') }}" alt="default avatar">
                     @endif
@@ -189,7 +189,7 @@
             @foreach($users as $user)
                 <article>
                     @if($user->avatar)
-                        <img src="{{ asset('storage/avatars/' . $user->avatar) }}" alt="{{ $user->name }} avatar">
+                        <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }} avatar">
                     @else
                         <img src="{{ asset('images/default-avatar.svg') }}" alt="default avatar">
                     @endif
