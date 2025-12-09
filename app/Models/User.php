@@ -19,6 +19,7 @@ use App\Models\FriendRequest;
  * @method static orderBy(string $string)
  * @method static create(array $array)
  * @method static where(string $string, true $true)
+ * @method static firstWhere(string $string, string $string1)
  * @property mixed $id
  * @property mixed $is_admin
  */
