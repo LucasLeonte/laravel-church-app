@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
 /**
  * @method static findOrFail($id)
  * @method static orderBy(string $string, string $string1)
+ * @method static create(array $array)
  * @property mixed $title
  * @property mixed $content
  * @property mixed|null $author

@@ -15,6 +15,11 @@
     @foreach($news as $post)
         <article>
             <h2>{{ $post->title }}</h2>
+
+            @if(!empty($post->author))
+                <p>By {{ $post->author }}</p>
+            @endif
+
             <img
                 src="{{ Str::startsWith($post->image, 'default-news-image') ? asset('images/' . $post->image) : asset('storage/' . $post->image) }}"
                 alt="img">
