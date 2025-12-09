@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use App\Models\News;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
@@ -72,6 +73,11 @@ class NewsController extends Controller
         $post->author = $validated['author'] ?? $post->author;
 
         if ($request->hasFile('image')) {
+            // remove old image if it exists in storage
+            if (!empty($post->image) && Storage::disk('public')->exists($post->image)) {
+                Storage::disk('public')->delete($post->image);
+            }
+
             $imagePath = $request->file('image')->storeAs('images/news', uniqid() . '.' . $request->file('image')->getClientOriginalExtension(), 'public');
             $post->image = 'images/news/' . basename($imagePath);
         }
@@ -83,6 +89,12 @@ class NewsController extends Controller
     public function destroy($id): RedirectResponse
     {
         $post = News::findOrFail($id);
+
+        // delete image from storage if it exists on the public disk
+        if (!empty($post->image) && Storage::disk('public')->exists($post->image)) {
+            Storage::disk('public')->delete($post->image);
+        }
+
         $post->delete();
         return redirect()->route('news.index')->with('success', 'News post deleted successfully.');
     }

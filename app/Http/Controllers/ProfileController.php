@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -37,11 +38,13 @@ class ProfileController extends Controller
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             $avatarPath = $avatar->store('avatars', 'public');
-            $user->avatar = 'avatars/' . basename($avatarPath);
-            // Delete old avatar if it exists and is different from the new one
-            if ($user->avatar && $user->avatar !== $avatarPath && file_exists(storage_path('app/public/' . $user->avatar))) {
-                @unlink(storage_path('app/public/' . $user->avatar));
+
+            // delete old avatar if it exists and isn't the shared default
+            if (!empty($user->avatar) && $user->avatar !== 'default-avatar.svg' && Storage::disk('public')->exists($user->avatar)) {
+                Storage::disk('public')->delete($user->avatar);
             }
+
+            $user->avatar = 'avatars/' . basename($avatarPath);
         }
 
         // Remove avatar from $data to prevent overwriting with temp path
@@ -67,6 +70,11 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+
+        // delete avatar file if it exists and isn't the shared default in public/images
+        if (!empty($user->avatar) && $user->avatar !== 'default-avatar.svg' && Storage::disk('public')->exists($user->avatar)) {
+            Storage::disk('public')->delete($user->avatar);
+        }
 
         Auth::logout();
 

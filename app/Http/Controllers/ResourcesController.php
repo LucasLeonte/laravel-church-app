@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Resource;
 use App\Models\ResourceCategory;
+use Illuminate\Support\Facades\Storage;
 
 class ResourcesController extends Controller
 {
@@ -128,6 +129,11 @@ class ResourcesController extends Controller
         }
 
         if ($request->hasFile('image')) {
+            // delete old image if present and not one of the shared defaults
+            if (!empty($post->image) && $post->image !== 'default-resources-image.jpg' && Storage::disk('public')->exists($post->image)) {
+                Storage::disk('public')->delete($post->image);
+            }
+
             $imagePath = $request->file('image')->storeAs('images/resources', uniqid() . '.' . $request->file('image')->getClientOriginalExtension(), 'public');
             $post->image = 'images/resources/' . basename($imagePath);
         }
@@ -139,6 +145,12 @@ class ResourcesController extends Controller
     public function destroy($id): RedirectResponse
     {
         $post = Resource::findOrFail($id);
+
+        // delete image from storage if it exists and isn't a shared default in public/images
+        if (!empty($post->image) && $post->image !== 'default-resources-image.jpg' && Storage::disk('public')->exists($post->image)) {
+            Storage::disk('public')->delete($post->image);
+        }
+
         $post->delete();
         return redirect()->route('resources.index')->with('success', 'Resource deleted successfully.');
     }
