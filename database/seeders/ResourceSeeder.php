@@ -39,12 +39,68 @@ class ResourceSeeder extends Seeder
             );
         }
 
-        $resourceCategoryIds = ResourceCategory::pluck('id')->toArray();
-        if (!empty($resourceCategoryIds)) {
-            Resource::factory()->count(4)->make()->each(function ($resource) use ($resourceCategoryIds) {
-                $resource->resource_category_id = $resourceCategoryIds[array_rand($resourceCategoryIds)];
-                $resource->save();
-            });
+        // Create 5 articles
+        $articles = [
+            'Sermons' => [
+                'title' => 'The High Cost of Following Christ',
+                'content' => "In this classic sermon-style reflection, Billy Graham calls listeners back to the centrality of the cross — its meaning for sin, forgiveness, and the call to follow Jesus. The piece combines clear gospel proclamation with pastoral urgency, inviting a personal response and practical steps for new believers.",
+                'author' => 'Billy Graham',
+                'image' => 'images/resources/billy-graham.jpg',
+                'link' => 'https://www.youtube.com/watch?v=-vOGxGce3OM',
+                'published_at' => now()->subDays(5),
+            ],
+            'Apologetics' => [
+                'title' => 'Does God Exist?',
+                'content' => "Philosopher and theologian William Lane Craig presents a compelling case for the existence of God, drawing on cosmological, teleological, and moral arguments. This article breaks down complex philosophical concepts into accessible language, making it suitable for both skeptics and believers seeking a deeper understanding of faith.",
+                'author' => 'William Lane Craig',
+                'image' => 'images/resources/william-lane-craig.jpg',
+                'link' => 'https://www.reasonablefaith.org/writings/popular-writings/existence-nature-of-god/does-god-exist1',
+                'published_at' => now()->subDays(10),
+            ],
+            'Revival' => [
+                'title' => 'Pentecost At Any Cost',
+                'content' => "Leonard Ravenhill challenges believers to seek genuine revival with unwavering commitment. In this stirring article, he emphasizes that true revival demands total surrender, fervent prayer, and a willingness to pay any price for spiritual renewal. Ravenhill's passionate call to action inspires readers to pursue a deeper relationship with God and to ignite revival in their own lives and communities.",
+                'author' => 'Leonard Ravenhill',
+                'image' => 'images/resources/leonard-ravenhill.jpg',
+                'link' => 'http://www.ravenhill.org/prayer.htm',
+                'published_at' => now()->subDays(20),
+            ],
+            'Devotional' => [
+                'title' => 'Morning Breath: A Short Devotional for Busy Days',
+                'content' => "A five-minute devotional designed to center your day. Includes a short Scripture reading, a brief reflection to apply it practically, and a one-line prayer for everyday struggles — work, relationships, and rest. Perfect for those who want spiritual rhythm without long study time.",
+                'author' => 'Alice Johnson',
+                'image' => 'default-resources-image.jpg',
+                'link' => null,
+                'published_at' => now()->subDays(2),
+            ],
+            'Systematic Theology' => [
+                'title' => 'Doctrine of The Trinity',
+                'content' => "An overview of the Christian doctrine of the Trinity, exploring the biblical foundations, historical development, and theological significance of understanding God as Father, Son, and Holy Spirit. This article delves into key scriptural passages and addresses common misconceptions about this central tenet of Christian faith.",
+                'author' => 'Wayne Grudem',
+                'image' => 'images/resources/trinity.jpg',
+                'link' => 'https://www.biblicaltraining.org/library/trinity-by-wayne-grudem',
+                'published_at' => now()->subDays(30),
+            ],
+        ];
+
+        foreach ($articles as $categoryName => $data) {
+            $category = ResourceCategory::firstWhere('name', $categoryName);
+            if (! $category) {
+                // skip if category was not created for some reason
+                continue;
+            }
+
+            Resource::firstOrCreate(
+                ['title' => $data['title']],
+                [
+                    'content' => $data['content'],
+                    'author' => $data['author'],
+                    'image' => $data['image'],
+                    'link' => $data['link'],
+                    'published_at' => $data['published_at'],
+                    'resource_category_id' => $category->id,
+                ]
+            );
         }
 
         // Attach comments to 3 recent resources (if users exist)

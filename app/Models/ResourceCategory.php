@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static create(array $data)
  * @method static firstOrCreate(array $array, string[] $array1)
  * @method static pluck(string $string)
+ * @method static firstWhere(string $string, string $categoryName)
  */
 class ResourceCategory extends Model
 {

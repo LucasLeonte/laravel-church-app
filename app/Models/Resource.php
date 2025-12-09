@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static findOrFail($id)
  * @method static orderBy(string $string, string $string1)
  * @method static whereNotNull(string $string)
+ * @method static firstOrCreate(array $array, array $array1)
  * @property mixed $title
  * @property mixed $content
  * @property mixed|null $author
