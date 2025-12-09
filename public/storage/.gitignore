@@ -1,0 +1,8 @@
+*
+!.gitignore
+
+# keep avatars and images directories and their contents
+!avatars/
+!avatars/**
+!images/
+!images/**
