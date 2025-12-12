@@ -7,10 +7,14 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    <header>@include('components.navbar')</header>
+    @unless(View::hasSection('hide_navbar'))
+        <header>@include('components.navbar')</header>
+    @endunless
 
     <main>
-        <h1>@yield('title')</h1>
+        @unless(View::hasSection('hide_title'))
+            <h1>@yield('title')</h1>
+        @endunless
 
         @can('admin')
             @yield('admin-header')
@@ -21,6 +25,8 @@
         {{ $slot ?? null }}
     </main>
 
-    @include('components.footer')
+    @unless(View::hasSection('hide_footer'))
+        @include('components.footer')
+    @endunless
 </body>
 </html>

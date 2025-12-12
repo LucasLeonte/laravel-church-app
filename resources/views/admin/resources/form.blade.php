@@ -3,7 +3,7 @@
 @section('title', $post->exists ? 'Edit Resources Post' : 'Create Resources Post')
 
 @section('content')
-    <form method="POST" action="{{ $post->exists ? route('resources.update', $post->id) : route('resources.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ $post->exists ? route('resources.update', $post->id) : route('resources.store') }}" enctype="multipart/form-data" class="form-card">
         @csrf
 
         @if($post->exists)

@@ -3,7 +3,7 @@
 @section('title', 'Edit Program Item')
 
 @section('content')
-    <form method="POST" action="{{ route('program.update', $program->id) }}">
+    <form method="POST" action="{{ route('program.update', $program->id) }}" class="form-card">
         @csrf
         @method('PUT')
         @include('admin.program._form')

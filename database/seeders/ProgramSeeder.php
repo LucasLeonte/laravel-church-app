@@ -51,7 +51,7 @@ class ProgramSeeder extends Seeder
                 'day_of_week' => 'Saturday',
                 'start_time' => '19:00',
                 'end_time' => '21:00',
-                'published' => false,
+                'published' => true,
             ],
         ];
 

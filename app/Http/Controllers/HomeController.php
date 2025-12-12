@@ -85,9 +85,12 @@ class HomeController extends Controller
                 ->get();
         }
 
-        // latest resource
-        $latestResource = Resource::where('published_at', '<=', now())->orderByDesc('published_at')->first();
+        // 3 latest resources
+        $latestResources = Resource::where('published_at', '<=', now())
+            ->orderByDesc('published_at')
+            ->take(3)
+            ->get();
 
-        return view('home', compact('dailyVerse', 'news', 'programs', 'pendingRequests', 'latestResource'));
+        return view('home', compact('dailyVerse', 'news', 'programs', 'pendingRequests', 'latestResources'));
     }
 }

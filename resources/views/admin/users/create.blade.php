@@ -13,7 +13,7 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('admin.users.store') }}">
+    <form method="POST" action="{{ route('admin.users.store') }}" class="form-card">
         @csrf
         <div>
             <label>Name</label>

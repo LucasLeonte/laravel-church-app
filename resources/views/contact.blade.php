@@ -3,37 +3,41 @@
 @section('title', 'Contact')
 
 @section('content')
-    <div class="container">
-        <p>Ask us a question or become member at our church!</p>
+    <section class="dashboard-section" style="max-width: 700px; margin: 0 auto; padding: 1rem;">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <p style="font-size: 1.1rem; color: var(--text-muted);">Ask us a question or become a member at our church!</p>
+        </div>
 
         @if(session('status'))
-            <div class="alert alert-success">{{ session('status') }}</div>
+            <div class="alert alert-success" style="margin-bottom: 2rem; padding: 1rem; border-radius: var(--radius-sm); background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; text-align: center;">
+                {{ session('status') }}
+            </div>
         @endif
 
-        <form id="contactForm" action="{{ route('contact.send') }}" method="POST" novalidate>
+        <form id="contactForm" action="{{ route('contact.send') }}" method="POST" novalidate class="form-card" style="margin-top: 0;">
             @csrf
 
-            <div>
+            <div class="form-group">
                 <label for="name">Full Name</label>
-                <input id="name" name="name" value="{{ old('name') }}" required maxlength="255" aria-describedby="nameHelp">
-                @error('name') <div class="text-danger">{{ $message }}</div> @enderror
+                <input id="name" name="name" type="text" value="{{ old('name') }}" required maxlength="255" placeholder="Your full name">
+                @error('name') <div class="text-danger" style="color: #E63946; font-size: 0.85rem; margin-top: 0.25rem;">{{ $message }}</div> @enderror
             </div>
 
-            <div>
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" value="{{ old('email') }}" required maxlength="255">
-                @error('email') <div class="text-danger">{{ $message }}</div> @enderror
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input id="email" name="email" type="email" value="{{ old('email') }}" required maxlength="255" placeholder="name@example.com">
+                @error('email') <div class="text-danger" style="color: #E63946; font-size: 0.85rem; margin-top: 0.25rem;">{{ $message }}</div> @enderror
             </div>
 
-            <div>
+            <div class="form-group">
                 <label for="message">Message</label>
-                <textarea id="message" name="message" required maxlength="2000">{{ old('message') }}</textarea>
-                @error('message') <div class="text-danger">{{ $message }}</div> @enderror
+                <textarea id="message" name="message" required maxlength="2000" rows="5" placeholder="How can we help you?">{{ old('message') }}</textarea>
+                @error('message') <div class="text-danger" style="color: #E63946; font-size: 0.85rem; margin-top: 0.25rem;">{{ $message }}</div> @enderror
             </div>
 
-            <button type="submit">Send</button>
+            <button type="submit" class="btn" style="width: 100%; justify-content: center; padding: 1rem; font-size: 1.1rem;">Send Message</button>
         </form>
-    </div>
+    </section>
 
     <script>
         // Basic client-side validation and trimming to complement server-side rules.

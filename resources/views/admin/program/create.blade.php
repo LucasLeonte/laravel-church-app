@@ -3,10 +3,9 @@
 @section('title', 'Create Program Item')
 
 @section('content')
-    <form method="POST" action="{{ route('program.store') }}">
+    <form action="{{ route('program.store') }}" method="POST" class="form-card">
         @csrf
         @include('admin.program._form')
         <button type="submit">Create</button>
     </form>
 @endsection
-

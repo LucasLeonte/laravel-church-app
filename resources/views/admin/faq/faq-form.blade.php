@@ -3,7 +3,7 @@
 @section('title', $faq->exists ? 'Edit FAQ' : 'Create FAQ')
 
 @section('content')
-    <form method="POST" action="{{ $faq->exists ? route('faq.update', $faq->id) : route('faq.store') }}">
+    <form method="POST" action="{{ $faq->exists ? route('faq.update', $faq->id) : route('faq.store') }}" class="form-card">
         @csrf
         @if($faq->exists)
             @method('PUT')

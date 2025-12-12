@@ -14,35 +14,51 @@
         <h1>@yield('title')</h1>
 
         @hasSection('users')
-            @yield('users')
+            <section class="dashboard-section section-users">
+                @yield('users')
+            </section>
         @endif
 
         @hasSection('bible')
-            @yield('bible')
+            <section class="dashboard-section section-bible">
+                @yield('bible')
+            </section>
         @endif
 
         @hasSection('news')
-            @yield('news')
+            <section class="dashboard-section section-news">
+                @yield('news')
+            </section>
         @endif
 
         @hasSection('program')
-            @yield('program')
+            <section class="dashboard-section section-program">
+                @yield('program')
+            </section>
         @endif
 
         @hasSection('connect')
-            @yield('connect')
+            <section class="dashboard-section section-connect">
+                @yield('connect')
+            </section>
         @endif
 
         @hasSection('resources')
-            @yield('resources')
+            <section class="dashboard-section section-resources">
+                @yield('resources')
+            </section>
         @endif
 
         @hasSection('faq')
-            @yield('faq')
+            <section class="dashboard-section section-faq">
+                @yield('faq')
+            </section>
         @endif
 
         @hasSection('contact')
-            @yield('contact')
+            <section class="dashboard-section section-contact">
+                @yield('contact')
+            </section>
         @endif
 
         {{ $slot ?? null }}

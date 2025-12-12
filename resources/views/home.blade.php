@@ -26,13 +26,13 @@
                 <li>
                     @if(!empty($n->image))
                         <p>
-                            <img src="{{ Str::startsWith($n->image, 'images/') ? asset('storage/' . $n->image) : asset($n->image) }}" alt="{{ $n->title }}" style="max-width:200px; height:auto; display:block; margin-bottom:0.5rem;">
+                            <img src="{{ Str::startsWith($n->image, 'images/') ? asset('storage/' . $n->image) : asset($n->image) }}" alt="{{ $n->title }}">
                         </p>
                     @endif
 
                     <strong>{{ $n->title }}</strong>
                     <div>{{ Str::limit($n->content, 150) }}</div>
-                    <div><a href="{{ route('news.index') }}">Read more</a></div>
+
                 </li>
             @endforeach
         </ul>
@@ -99,20 +99,26 @@
 @endsection
 
 @section('resources')
-    <h2>Newest Resource</h2>
-    @if(isset($latestResource) && $latestResource)
-        <div>
-            @if(!empty($latestResource->image))
-                <p>
-                    <img src="{{ Str::startsWith($latestResource->image, 'images/') ? asset('storage/' . $latestResource->image) : asset($latestResource->image) }}" alt="{{ $latestResource->title }}" style="max-width:240px; height:auto; display:block; margin-bottom:0.5rem;">
-                </p>
-            @endif
-            <strong>{{ $latestResource->title }}</strong>
-            <div>{{ Str::limit($latestResource->content, 150) }}</div>
-            <p><a href="{{ route('resources.show', $latestResource->id) }}">Open Resource</a></p>
-        </div>
-    @else
-        <p>No resources yet.</p>
-    @endif
+    <h2>Newest Resources</h2>
+    <ul>
+        @forelse($latestResources ?? [] as $resource)
+            <li>
+                <!-- resource card link wraps the item so the entire element is clickable -->
+                <a href="{{ route('resources.show', $resource->id) }}" class="resource-card">
+                    @if(!empty($resource->image))
+                        <p>
+                            <img src="{{ Str::startsWith($resource->image, 'images/') ? asset('storage/' . $resource->image) : asset($resource->image) }}" alt="{{ $resource->title }}" class="rounded-img-small">
+                        </p>
+                    @endif
+                    <strong>{{ $resource->title }}</strong>
+                    <div>{{ Str::limit($resource->content, 150) }}</div>
+                </a>
+            </li>
+        @empty
+            <li>
+                <p>No resources yet.</p>
+            </li>
+        @endforelse
+    </ul>
     <p><a href="{{ route('resources.index') }}">See All Resources</a></p>
 @endsection

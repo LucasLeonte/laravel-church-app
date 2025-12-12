@@ -3,7 +3,7 @@
 @section('title', $category->exists ? 'Edit Category' : 'Create Category')
 
 @section('content')
-    <form method="POST" action="{{ $category->exists ? route('resources.categories.update', $category->id) : route('resources.categories.store') }}">
+    <form method="POST" action="{{ $category->exists ? route('resources.categories.update', $category->id) : route('resources.categories.store') }}" class="form-card">
         @csrf
         @if($category->exists)
             @method('PUT')

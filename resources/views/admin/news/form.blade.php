@@ -3,7 +3,7 @@
 @section('title', $post->exists ? 'Edit News Post' : 'Create News Post')
 
 @section('content')
-    <form method="POST" action="{{ $post->exists ? route('news.update', $post->id) : route('news.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ $post->exists ? route('news.update', $post->id) : route('news.store') }}" enctype="multipart/form-data" class="form-card">
         @csrf
 
         @if($post->exists)

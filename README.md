@@ -1,59 +1,141 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Church App
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel-based web application for church community management, featuring FAQs, programs, news, favorite Bible verses, friend requests, and contact messaging functionality.
 
-## About Laravel
+## Project Overview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This application provides a comprehensive platform for church community members to:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   Browse and manage FAQs and their categories
+-   View church programs and events
+-   Access church news updates
+-   Save and manage favorite Bible verses
+-   Send and receive friend requests
+-   Submit contact messages to the church
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Setup Instructions
 
-## Learning Laravel
+Follow these steps to get the project up and running:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Prerequisites
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+-   PHP 8.2 or higher
+-   Composer
+-   Node.js and npm
+-   A database system (SQLite, MySQL, PostgreSQL, etc.)
 
-## Laravel Sponsors
+### Installation Steps
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1. **Clone the repository**
 
-### Premium Partners
+    ```bash
+    git clone https://github.com/yourusername/laravel-church-app.git
+    cd laravel-church-app
+    ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+2. **Install PHP dependencies**
 
-## Contributing
+    ```bash
+    composer install
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. **Install JavaScript dependencies**
 
-## Code of Conduct
+    ```bash
+    npm install
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. **Create environment configuration**
 
-## Security Vulnerabilities
+    ```bash
+    cp .env.example .env
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5. **Generate application key**
 
-## License
+    ```bash
+    php artisan key:generate
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+6. **Configure database**
+
+    - The project is pre-configured to use SQLite (as used during development)
+    - For SQLite: Ensure `database/database.sqlite` exists or create it with `touch database/database.sqlite`
+    - For other databases: Update the `DB_CONNECTION` and related settings in your `.env` file
+    - Configure your mail settings for the contact form functionality
+
+7. **Run database migrations**
+
+    ```bash
+    php artisan migrate
+    ```
+
+8. **Seed the database (optional)**
+
+    ```bash
+    php artisan db:seed
+    ```
+
+9. **Build front-end assets**
+
+    ```bash
+    npm run dev
+    ```
+
+    For production:
+
+    ```bash
+    npm run build
+    ```
+
+10. **Start the development server**
+
+    ```bash
+    php artisan serve
+    ```
+
+    The application will be available at `http://localhost:8000`
+
+## Technology Stack
+
+-   **Backend**: Laravel 12
+-   **Frontend**: Laravel Blade views with Vite
+-   **Database**: SQLite (development), configurable for production
+-   **Package Manager**: Composer (PHP), npm (JavaScript)
+
+## Key Features
+
+-   **User Management**: Authentication and authorization
+-   **FAQ System**: Organized FAQs with categories
+-   **Church Programs**: Schedule and manage church events
+-   **News Management**: Post and display church news
+-   **Resource Management**: Manage church resources and materials
+-   **Bible Integration**: Save favorite Bible verses with integration
+-   **Social Features**: Friend requests and connection management
+-   **Contact System**: Form-based contact messaging
+
+## Project Structure
+
+-   `app/` - Application code (Models, Controllers, Services)
+-   `config/` - Configuration files
+-   `database/` - Migrations, factories, and seeders
+-   `resources/` - Views and front-end assets
+-   `routes/` - Application routes
+-   `tests/` - Test files
+-   `storage/` - File storage and logs
+-   `public/` - Publicly accessible assets
+
+## Sources
+
+-   **Canvas Slides**: Course materials and theory from Canvas
+-   **Laravel Documentation**: [laravel.com/docs](https://laravel.com/docs)
+
+## AI Usage
+
+This project was developed with assistance from AI tools as follows:
+
+-   **GitHub Copilot**: Used for development acceleration after initial code structure was established. Copilot was employed throughout the project to speed up development workflow. All generated code has been carefully reviewed, analyzed, verified for correctness, and understood before acceptance. Usage was distributed across the entire project as needed for various components and features.
+
+-   **Antigravity (Gemini 3 Pro)**: Used at the end of the project for styling and CSS to ensure a polished user interface.
+
+Both AI tools provided significant development efficiency improvements while maintaining code quality and project integrity through comprehensive code review and validation processes.
