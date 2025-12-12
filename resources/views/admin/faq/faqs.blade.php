@@ -5,7 +5,7 @@
 @section('content')
     <section class="dashboard-section">
         <div class="admin-header">
-            <h2>Manage FAQs</h2>
+            <h2>Current FAQs</h2>
             <a href="{{ route('faq.create') }}" class="btn">
                 + Create New FAQ
             </a>

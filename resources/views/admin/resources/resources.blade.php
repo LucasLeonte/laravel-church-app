@@ -5,7 +5,7 @@
 @section('content')
     <section class="dashboard-section">
         <div class="admin-header">
-            <h2>Manage Resources</h2>
+            <h2>Current Resources</h2>
             <a href="{{ route('resources.create') }}" class="btn">
                 + Create New Resource
             </a>

@@ -5,7 +5,7 @@
 @section('content')
     <section class="dashboard-section">
         <div class="admin-header">
-            <h2>Manage Program</h2>
+            <h2>Current Programs</h2>
             <a href="{{ route('program.create') }}" class="btn">
                 + Create New Item
             </a>
