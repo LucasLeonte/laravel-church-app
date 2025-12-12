@@ -60,9 +60,10 @@ Follow these steps to get the project up and running:
 6. **Configure database**
 
     - The project is pre-configured to use SQLite (as used during development)
-    - For SQLite: Ensure `database/database.sqlite` exists or create it with `touch database/database.sqlite`
+    - For SQLite: Ensure `database/database.sqlite` exists or create it with `New-Item -ItemType File -Path "database/database.sqlite"
+` or `touch database/database.sqlite`
     - For other databases: Update the `DB_CONNECTION` and related settings in your `.env` file
-    - Configure your mail settings for the contact form functionality
+    - Configure your mail settings for the contact form functionality (optional)
 
 7. **Run database migrations**
 
