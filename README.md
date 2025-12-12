@@ -137,5 +137,3 @@ This project was developed with assistance from AI tools as follows:
 -   **GitHub Copilot**: Used for development acceleration after initial code structure was established. Copilot was employed throughout the project to speed up development workflow. All generated code has been carefully reviewed, analyzed, verified for correctness, and understood before acceptance. Usage was distributed across the entire project as needed for various components and features.
 
 -   **Antigravity (Gemini 3 Pro)**: Used at the end of the project for styling and CSS to ensure a polished user interface.
-
-Both AI tools provided significant development efficiency improvements while maintaining code quality and project integrity through comprehensive code review and validation processes.
