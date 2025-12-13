@@ -34,7 +34,7 @@
                                 {{ $resource->title }}
                             </td>
                             <td class="muted">
-                                {{ $resource->category->name ?? 'Uncategorized' }}
+                                {{ $resource->categories->pluck('name')->first() ?? 'Uncategorized' }}
                             </td>
                             <td class="muted small">
                                 {{ Str::limit(strip_tags($resource->content), 60) }}
